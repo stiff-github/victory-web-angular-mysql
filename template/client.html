@@ -1,0 +1,50 @@
+<div class="row row-offcanvas row-offcanvas-right">
+    <div class="col-xs-12 col-sm-8" id="noprint0">
+        <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+        </p>
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div>
+                        <fieldset class="nextdiv" style="padding: 10px 10px 10px 10px;">
+                            <legend>Введите ваш личный код</legend>
+                            <input style="height:25px;width: 150px; text-align:left;" type="text" placeholder="Личный код" ng-model="client_maska">
+                            <button style="height:25px;padding: 0 5px 0 5px;" type="button" class="btn btn-success" ng-click="enterJournal(client_maska)"><span class="glyphicon glyphicon-list-alt"></span> Войти</button>
+                            <span style="height:25px;padding: 0 5px 0 5px;">{{lstGroups[0].fname}}</span><span style="height:25px;padding: 0 5px 0 5px;">{{lstGroups[0].lname}}</span>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset class="nextdiv" style="padding: 10px 10px 10px 10px;">
+                            <legend>Выбор группы и даты занятия</legend>
+                            <select ng-model="group.selected" style="height:25px;width: 150px; text-align:left;" name="selectHeats" id="selectHeats" ng-model="numGroup" placeholder="Выберите группу"
+                                    ng-options="lstGroup as lstGroup.code_group for lstGroup in lstGroups">
+                            </select>
+                            <input style="height:25px;" type="date" datetime="yyyy-MM-dd" ng-model="dateJournal"> <!-- { dateFormat: 'yy-mm-dd'} -->
+                            <button style="height:25px;padding: 0 5px 0 5px;" type="button" class="btn btn-success" ng-click="loadGroupData(numGroup, dateJournal)"><span class="glyphicon glyphicon-list-alt"></span> Вывести журнал</button>
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!--/.col-xs-12.col-sm-8-->
+    <div class="col-xs-12 col-sm-8" style="display:{{vsblReport}}" id="print1">
+        <hr id="noprint2">
+        <div class="table-responsive" id="print2">
+            <table class="table table-bordered table-hover table-report table-condensed" id="printArea">
+                <thead>
+                <tr>
+                    <td style="background-color: #f0f0f0;">Присутствие</td>
+                </tr>
+                </thead>
+                <tbody ng-repeat="grRow in grJournal">
+                <tr>
+                    <td><input type="checkbox" name="chk[{{grRow.id}}]" ng-true-value="'1'" ng-false-value="'0'" ng-model="grRow.presence"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-success" ng-click="saveGroupData(grJournal)" ng-disabled="disable"><span class="glyphicon glyphicon-list-alt"></span> Сохранить журнал</button>
+    </div>
+</div><!--/row-->
